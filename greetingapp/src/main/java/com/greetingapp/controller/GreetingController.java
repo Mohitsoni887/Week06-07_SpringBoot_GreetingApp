@@ -1,37 +1,34 @@
 package com.greetingapp.controller;
 
-import com.greetingapp.service.GreetingService;
 import com.greetingapp.model.Greeting;
-import org.springframework.web.bind.annotation.*;
+import com.greetingapp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class GreetingController {
-
-    //UC1
+    // UC1
     @GetMapping("/greet")
-    public Greeting getGreeting() {
+    public Greeting getGreeting(){
         return new Greeting("Hello from BridgeLabz");
     }
 
     @PostMapping("/greet")
-    public Greeting postGreeting(@RequestBody Greeting greeting) {
+    public Greeting postGreeting(@RequestBody Greeting greeting){
         return greeting;
     }
 
     @PutMapping("/greet")
-    public Greeting putGreeting(@RequestBody Greeting greeting) {
-        return new Greeting("Updated: " + greeting.getMessage());
+    public Greeting putGreeting(@RequestBody Greeting greeting){
+        return new Greeting("Updated:"+greeting.getMessage());
     }
 
     @DeleteMapping("/greet")
-    public Greeting deleteGreeting() {
+    public Greeting deleteGreeting(){
         return new Greeting("Greeting deleted");
     }
 
-
-    //UC2
+    // UC2
     private final GreetingService greetingService;
 
     @Autowired
@@ -43,4 +40,14 @@ public class GreetingController {
     public Greeting getGreetings() {
         return new Greeting(greetingService.getGreetingMessage());
     }
+
+    //UC3
+
+    // GET Request - Returns a greeting message with optional name inputs
+    @GetMapping("/greetinput")
+    public Greeting getGreeting(@RequestParam(required = false) String firstname,
+                                @RequestParam(required = false) String lastname) {
+        return new Greeting(greetingService.getGreetingMessage(firstname, lastname));
+    }
+    //http://localhost:8881/api/greetinput?firstname=Mohit&lastname=Soni
 }
