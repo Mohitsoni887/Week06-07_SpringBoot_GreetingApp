@@ -1,37 +1,46 @@
 package com.greetingapp.controller;
 
-import com.greetingapp.model.Greeting;
 import com.greetingapp.service.GreetingService;
+import com.greetingapp.model.Greeting;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
-@RequestMapping("/greet")
+@RequestMapping("/api")
 public class GreetingController {
+
     //UC1
-    private final GreetingService greetingService;
-
-    public GreetingController(GreetingService greetingService) {
-        this.greetingService = greetingService;
+    @GetMapping("/greet")
+    public Greeting getGreeting() {
+        return new Greeting("Hello from BridgeLabz");
     }
 
-    @GetMapping
-    public Greeting getGreeting(@RequestParam(required = false) String firstName,
-                                @RequestParam(required = false) String lastName) {
-        return new Greeting(greetingService.getGreetingMessage(firstName, lastName));
-    }
-
-    @PostMapping
+    @PostMapping("/greet")
     public Greeting postGreeting(@RequestBody Greeting greeting) {
         return greeting;
     }
 
-    @PutMapping
+    @PutMapping("/greet")
     public Greeting putGreeting(@RequestBody Greeting greeting) {
         return new Greeting("Updated: " + greeting.getMessage());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/greet")
     public Greeting deleteGreeting() {
         return new Greeting("Greeting deleted");
+    }
+
+
+    //UC2
+    private final GreetingService greetingService;
+
+    @Autowired
+    public GreetingController(GreetingService greetingService) {
+        this.greetingService = greetingService;
+    }
+
+    @GetMapping("/greetservice")
+    public Greeting getGreetings() {
+        return new Greeting(greetingService.getGreetingMessage());
     }
 }
