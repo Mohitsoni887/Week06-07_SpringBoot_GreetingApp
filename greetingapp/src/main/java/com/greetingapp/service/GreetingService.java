@@ -1,3 +1,4 @@
+
 package com.greetingapp.service;
 
 import com.greetingapp.model.Greeting;
@@ -77,4 +78,12 @@ public class GreetingService {
                 .orElse("Greeting not found");
     }
 
+    public String deleteGreetingById(Long id) {
+        if (greetingRepository.existsById(id)) {
+            greetingRepository.deleteById(id);
+            return "Greeting deleted successfully";
+        } else {
+            return "Greeting not found";
+        }
+    }
 }
