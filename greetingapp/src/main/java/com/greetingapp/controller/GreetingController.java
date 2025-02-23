@@ -1,3 +1,4 @@
+
 package com.greetingapp.controller;
 
 import com.greetingapp.model.Greeting;
@@ -5,7 +6,7 @@ import com.greetingapp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/api")
+
 public class GreetingController {
     // UC1
     @GetMapping("/greet")
@@ -29,6 +30,7 @@ public class GreetingController {
     }
 
     // UC2
+    @Autowired
     private final GreetingService greetingService;
 
     @Autowired
@@ -36,10 +38,10 @@ public class GreetingController {
         this.greetingService = greetingService;
     }
 
-    @GetMapping("/greetservice")
+   /* @GetMapping("/greetservice")
     public Greeting getGreetings() {
         return new Greeting(greetingService.getGreetingMessage());
-    }
+    }*/
 
     //UC3
 
@@ -49,5 +51,12 @@ public class GreetingController {
                                 @RequestParam(required = false) String lastname) {
         return new Greeting(greetingService.getGreetingMessage(firstname, lastname));
     }
-    //http://localhost:8881/api/greetinput?firstname=Mohit&lastname=Soni
+    // UC4
+    @PostMapping("/savegreeting")
+    public Greeting saveGreeting(@RequestParam(required = false) String firstName,
+                                 @RequestParam(required = false) String lastName) {
+        String message = greetingService.getGreetingMessage(firstName, lastName);
+        return new Greeting(message);
+    }
+
 }
