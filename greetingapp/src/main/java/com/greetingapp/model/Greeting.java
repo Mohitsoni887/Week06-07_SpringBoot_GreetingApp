@@ -1,4 +1,7 @@
 package com.greetingapp.model;
+
+
+
 import jakarta.persistence.*;
 
 @Entity

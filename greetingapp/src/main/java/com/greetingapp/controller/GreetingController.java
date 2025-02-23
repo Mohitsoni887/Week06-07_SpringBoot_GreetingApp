@@ -1,4 +1,3 @@
-
 package com.greetingapp.controller;
 
 import com.greetingapp.model.Greeting;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 
 public class GreetingController {
+    /*
     // UC1
     @GetMapping("/greet")
     public Greeting getGreeting(){
@@ -27,10 +27,9 @@ public class GreetingController {
     @DeleteMapping("/greet")
     public Greeting deleteGreeting(){
         return new Greeting("Greeting deleted");
-    }
+    }*/
 
     // UC2
-    @Autowired
     private final GreetingService greetingService;
 
     @Autowired
@@ -46,17 +45,27 @@ public class GreetingController {
     //UC3
 
     // GET Request - Returns a greeting message with optional name inputs
-    @GetMapping("/greetinput")
+   /* @GetMapping("/greetinput")
     public Greeting getGreeting(@RequestParam(required = false) String firstname,
                                 @RequestParam(required = false) String lastname) {
         return new Greeting(greetingService.getGreetingMessage(firstname, lastname));
     }
-    // UC4
+    //http://localhost:8080/api/greetinput?firstname=Pragya&lastname=Sable
+
+
+   /* // UC4
     @PostMapping("/savegreeting")
     public Greeting saveGreeting(@RequestParam(required = false) String firstName,
                                  @RequestParam(required = false) String lastName) {
         String message = greetingService.getGreetingMessage(firstName, lastName);
         return new Greeting(message);
+    }*/
+
+    //UC5
+    @GetMapping("/findgreeting/{id}")
+    public Greeting findGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id)
+                .orElseThrow(() -> new RuntimeException("Greeting not found with ID: " + id));
     }
 
 }
