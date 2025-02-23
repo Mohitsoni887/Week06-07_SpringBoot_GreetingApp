@@ -1,4 +1,3 @@
-
 package com.greetingapp.controller;
 
 import com.greetingapp.model.Greeting;

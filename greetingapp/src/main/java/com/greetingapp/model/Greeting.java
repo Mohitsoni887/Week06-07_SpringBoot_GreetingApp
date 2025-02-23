@@ -1,4 +1,3 @@
-
 package com.greetingapp.model;
 
 
