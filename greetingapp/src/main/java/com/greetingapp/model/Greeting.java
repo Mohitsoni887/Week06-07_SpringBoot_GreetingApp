@@ -1,3 +1,4 @@
+
 package com.greetingapp.model;
 
 
@@ -5,7 +6,6 @@ package com.greetingapp.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "GREETING")
 public class Greeting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
